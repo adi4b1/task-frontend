@@ -1,0 +1,131 @@
+/* *{
+  background-color: #F4F2EE;
+} */
+
+.mainBlock{
+  display: flex;
+  flex-direction: row;
+  grid-gap:20px;
+  padding:10px;
+  
+}
+.navInfo{
+  background-color: #ffffff;
+  max-width:200px;
+  max-height:auto;
+  height:99%;
+  width:99%;
+  padding:20px;
+}
+.headerAllTask{
+  background-color: #ffffff;
+  max-width:950px;
+  max-height:auto;
+  height:99%;
+  width:99%;
+  padding:20px;
+}
+.taskBlock{
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+.taskCards{
+  /* background-color: wheat; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap:5px;
+  overflow-y: auto;
+height:490px;
+  
+}
+.taskBody{
+  background-color:#f8570d;
+  max-height:150px;
+  height:99%;
+  max-width:280px;
+  width:99%;
+  padding:10px;
+  border-radius: 8px;
+  position: relative;
+}
+.taskBody:hover{
+  border:2px solid black;
+  transition: 0.1s all ease-in;
+}
+.forModal{
+  max-height: 400px;
+  height: 99%;
+  max-width:400px;
+  width:99%;
+  background-color: white;
+  box-shadow: 1px 1px 5px gray;
+  position:absolute;
+  top:18%;
+  border-radius: 8px;
+  left:35%;
+}
+.createButton{
+  background: transparent;
+  border:1px solid gray;
+  cursor: pointer;
+  padding:10px 20px;
+}
+.formBody{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding:15px;
+  gap:10px;
+}
+.closeModalButton{
+  outline:none;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  padding:4px 12px;
+  margin:4px;
+  border-radius: 50%;
+}
+.closeModalButton:hover{
+  background-color:lightgray;
+  color:black;
+  transition: 0.125s all ease-in-out;
+}
+.forLoading{
+  text-align: center;
+
+  /* background-color: bisque; */
+}
+.taskname{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 18px;
+}
+.created{
+  font-size: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+}
+.checkedtaskname{
+  color:rgb(255, 255, 255);
+text-decoration: line-through;
+}
+.taskbodyFooter{
+  position:absolute;
+  bottom:10px;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  /* align-items: center; */
+  align-content: center;
+  gap:16px;
+  font-size: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.isCheck{
+  height:15px;
+  width:15px;
+  cursor:pointer;
+  border-radius: 50%;
+}
