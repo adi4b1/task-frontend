@@ -2,7 +2,7 @@
 import TaskCom from "./TaskCom"
 
 import { useState,useEffect } from "react"
-import { fetchTasks ,createTask,getPriority,getisComplete} from "../redux/taskSlice"
+import { fetchTasks,createTask,getPriority,getisComplete,getlayoutmodal,getLayout} from "../redux/taskSlice"
 // import {createTask} from "../redux/createTask"
 import { useDispatch,useSelector } from "react-redux"
 // const reducerfunction = (state, action) => {
@@ -27,37 +27,18 @@ import { useDispatch,useSelector } from "react-redux"
 const Alltasks=()=>{
 
     const dispatch=useDispatch()
-    const{tasks,loading,error}=useSelector((state)=>state.tasks)
+    const{tasks,loading,error,layout,layoutmodal}=useSelector((state)=>state.tasks)
     // const[radioValue,setradioValue]=useState(intialRadio)
     useEffect(()=>{
-        setTimeout(dispatch(()=>{
-            dispatch(fetchTasks()),
-            console.log('displayed 1');
-            
-        }),1000)
-
-        setTimeout(dispatch(()=>{
-         
-            dispatch(getisComplete(0))
-            console.log('displayed 2');
-            
-        }),2000)
-
-        setTimeout(dispatch(()=>{
-            dispatch(getPriority("All"));
-            console.log('displayed 3');
-            
-        }),3000)
-        
-   
-        
-        
+            dispatch(fetchTasks()) 
     },[dispatch])
 
-
-   
+    
+    
+    
 
     const [modal,setmodal]=useState(false)
+    const[message,setmessage]=useState(false)
     // const[isSubmit,setissubmit]=useState(false)
     const [taskdata,settaskdata]=useState({
         taskname:"",
@@ -94,11 +75,17 @@ const Alltasks=()=>{
         e.preventDefault()
         try {
         await dispatch(createTask(taskdata)).unwrap()//wait for task ceration after second dispatch works
+        
+            
+       
         settaskdata("")
         } catch (error) {
             console.error("Task creation failed:", error);
         }
         finally{
+            
+                setmessage(!message)
+            
             dispatch(fetchTasks())
             settaskdata({
                 taskname:"",
@@ -113,6 +100,30 @@ const Alltasks=()=>{
     const reversedArray=tasks.map((i)=>i).reverse()
     // console.log('reversedArray',reversedArray);
     
+    const closeUIModal=()=>{
+        dispatch(getlayoutmodal(!layoutmodal))
+    }
+
+    const setLayoutChange=(e)=>{
+        // let targetContent=document.getElementsByClassName('boxContent')
+        // if(targetContent){
+            if(e.target.tagName=="H3"){
+                dispatch(getLayout(e.target.textContent))
+                console.log(e.target.textContent);
+            }
+            
+            
+        // }
+        // console.log(targetContent);
+        
+        
+        // console.log('layout',layout);
+        
+    }
+    // const setLayoutChange1=()=>{
+    //     dispatch(getLayout("Rectangle"))
+    //     console.log('layout',layout);
+    // }
     return(
   
         <div className="headerAllTask">
@@ -127,6 +138,12 @@ const Alltasks=()=>{
                 onClick={openModal}>➕Task</button>
             </div> 
             <hr />
+            <div className="actions">
+                <button>Pending</button>
+                <button>
+                    completed
+                </button>
+            </div>
             <div>
             <div className="forLoading">
             {loading&&(
@@ -138,13 +155,17 @@ const Alltasks=()=>{
             </div>
             <div className="taskCards">
            
-                <TaskCom tasks={reversedArray} loading={loading} error={error}/>
+                <TaskCom tasks={reversedArray} loading={loading} error={error}
+              
+                layout={layout}
+                />
             </div>     
             </div>  
             {/* ////modal */}
            {modal&&(
             <div className="forModal">
-                <button onClick={()=>setmodal(false)} className="closeModalButton">X</button>
+                <button onClick={()=>{setmodal(false) ;setmessage(false)}} className="closeModalButton">X</button>
+                <span style={{color:"green"}}>{message&&"form submitted sucesfully 😀"}</span>
                 <form onSubmit={formSubmitHandler} className="formBody ">
                     
                    
@@ -188,6 +209,44 @@ const Alltasks=()=>{
                     </button>
                 </form>
             </div>
+           )}
+           {layoutmodal&&(
+             <div className="forModal">
+             <button onClick={closeUIModal} className="closeModalButton">X</button>
+            
+
+            <section className="forSection" onClick={setLayoutChange} >
+               
+                <div className="boxContent" style={layout==="Square"?{border:"3px solid green"}:{}}>
+                    <h3 style={{cursor:"pointer"}}>Square</h3>
+                    <div className="forparentDivSqaure">
+                        <div className="childSquare"></div>
+                        <div className="childSquare"></div>
+                        <div className="childSquare"></div>
+                        <div className="childSquare"></div>
+                        <div className="childSquare"></div>
+                        <div className="childSquare"></div>
+                        <div className="childSquare"></div>
+                        <div className="childSquare"></div>
+                        <div className="childSquare"></div>
+                    </div>
+                </div>
+                <div className="boxContent" style={layout==="Rectangle"?{border:"3px solid green"}:{}}>
+                    <h3 style={{cursor:"pointer"}}>Rectangle</h3>
+                    <div className="forparentDivRect">
+                        <div className="childRect"></div>
+                        <div className="childRect"></div>
+                        <div className="childRect"></div>
+                        <div className="childRect"></div>
+                        <div className="childRect"></div>
+                        
+                    </div>
+                </div>
+                
+                
+            </section>
+           
+         </div>
            )}
         </div>
 

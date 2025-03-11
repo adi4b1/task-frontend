@@ -7,6 +7,8 @@ const initialState={
     tasks:[],
     alltasks:[],
     error:null,
+    layout:"Square",
+    layoutmodal:false
 }
 
 
@@ -85,6 +87,12 @@ const taskSlice=createSlice({
         },
         getisComplete:(state,action)=>{
             state.tasks=state.alltasks.filter((item)=>item.isComplete==action.payload)
+        },
+        getLayout:(state,action)=>{
+            state.layout=action.payload
+        },
+        getlayoutmodal:(state,action)=>{
+            state.layoutmodal=action.payload
         }
     },
     extraReducers:(builder)=>{
@@ -133,5 +141,5 @@ const taskSlice=createSlice({
 
 
 
-export const{getPriority,getisComplete}=taskSlice.actions
+export const{getPriority,getisComplete,getLayout,getlayoutmodal}=taskSlice.actions
 export default taskSlice.reducer

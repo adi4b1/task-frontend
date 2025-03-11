@@ -2,7 +2,7 @@
 import {useDispatch } from "react-redux"
 
 import {updateTask } from "../redux/taskSlice"
-const TaskCom=({tasks})=>{
+const TaskCom=({tasks,layout})=>{
     // console.log('tasks',tasks);
     
 const dis=useDispatch()
@@ -55,7 +55,7 @@ const dis=useDispatch()
                     tasks?.map((i)=>{
                         return(
                           
-                                <div key={i._id} className="taskBody">
+                                <div key={i._id} className={layout=="Square"?'taskBody':"taskBodyRect"}>
                                     <div>
                                         <h6 className={i.isComplete?'checkedtaskname':'taskname'}>{i.taskname.substr(0,100)}</h6>
                                     </div>

@@ -9,6 +9,20 @@
   padding:10px;
   
 }
+.actions{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap:4px;
+  margin:4px;
+  /* padding:4px; */
+}
+.actions button{
+  border:1px solid black;
+  padding:4px 20px;
+  border-radius: 15px;
+  
+}
 .navInfo{
   background-color: #ffffff;
   max-width:200px;
@@ -28,6 +42,7 @@
 .taskBlock{
   display: flex;
   flex-direction:row;
+  align-items: center;
   justify-content: space-between;
 }
 .taskCards{
@@ -40,19 +55,79 @@
 height:490px;
   
 }
-.taskBody{
-  background-color:#f8570d;
+.taskBodyRect{
+  background-color:#edeae8;
   max-height:150px;
   height:99%;
-  max-width:280px;
+  max-width:440px;
+  border:1px solid red;
   width:99%;
   padding:10px;
   border-radius: 8px;
   position: relative;
 }
-.taskBody:hover{
+.taskBody{
+  background-color:#edeae8;
+  max-height:150px;
+  height:99%;
+  max-width:280px;
+  border:1px solid red;
+  width:99%;
+  padding:10px;
+  border-radius: 8px;
+  position: relative;
+}
+.taskBody:hover,.taskBodyRect:hover{
   border:2px solid black;
   transition: 0.1s all ease-in;
+  cursor: pointer;
+}
+.forSection{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap:10px;
+  justify-items: center;
+  justify-content: center;
+  /* justify-content: center; */
+}
+
+.boxContent{
+  height:300px;
+  width:170px;
+  border-radius: 4px;
+  text-align: center;
+  border:1px solid black;
+}
+.forparentDivSqaure{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap:10px;
+  justify-items: center;
+  justify-content: center;
+}
+.childSquare{
+  border:3px solid lightgray;
+  height:40px;
+  width:60px;
+}
+.forparentDivRect{
+  display:flex;
+  flex-direction: column;
+  padding-left:10px;
+  /* flex-wrap: wrap; */
+  gap:10px;
+  max-width:160px;
+  width:99%;
+  /* justify-items: center; */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+.childRect{
+  border:3px solid lightgray;
+  height:40px;
+  width:auto;
 }
 .forModal{
   max-height: 400px;
@@ -108,7 +183,7 @@ height:490px;
   
 }
 .checkedtaskname{
-  color:rgb(255, 255, 255);
+  color:rgb(0, 0, 0);
 text-decoration: line-through;
 }
 .taskbodyFooter{

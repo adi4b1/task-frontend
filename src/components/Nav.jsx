@@ -1,11 +1,13 @@
 import { useSelector,useDispatch } from "react-redux"
-import {getPriority,getisComplete} from '../redux/taskSlice'
+import {getPriority,getisComplete,getlayoutmodal} from '../redux/taskSlice'
 import {useState, useRef } from "react"
 
 const Nav=()=>{
+
+    
     // const [pri,setpri]=useState("All")
     const dispatch=useDispatch()
-    const{tasks,alltasks,loading}=useSelector((state)=>state.tasks)||[]
+    const{tasks,alltasks,layout,layoutmodal}=useSelector((state)=>state.tasks)||[]
     const total=alltasks.map((i)=>i).length
     const pending=tasks.filter((k)=>!k.isComplete).length
     
@@ -54,6 +56,11 @@ if(radioRef2.current){
 
     }
     
+    const layoutmodalHandler=()=>{
+        dispatch(getlayoutmodal(!layoutmodal))
+        console.log('layoutmodal',layoutmodal);
+        
+    }
     return(
         <div className="navInfo">
             
@@ -103,7 +110,7 @@ if(radioRef2.current){
                 ref={radioRef1}
                 />
                 <label htmlFor="true">completed</label>
-<br />
+                <br />
                 <input type="radio" className="" 
                 name="isComplete"
                 // defaultChecked
@@ -113,6 +120,11 @@ if(radioRef2.current){
                 />
                 <label htmlFor="false">pending</label>
                 </div>
+                <hr />
+                <section>
+                    <h6 style={{cursor:"pointer"}} onClick={layoutmodalHandler}>Change Layout  <span>➡️</span></h6>
+                   
+                </section>
                
                
             </div>
