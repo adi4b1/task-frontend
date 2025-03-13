@@ -33,6 +33,31 @@ export const createTask=createAsyncThunk(
     }
 )
 
+export const deleteTask=createAsyncThunk(
+    'tasks/deleteTask',
+    async(taskId,{rejectWithValue})=>{
+        try {
+            console.log('from slice function ',typeof taskId);
+            const data=await fetch(`https://task-backend-beige.vercel.app/task/deletetask/${taskId}`,{
+                method:"DELETE",
+                
+
+            })
+            if (!data.ok) throw new Error("failed to delete")
+          
+            return taskId
+            // console.log(data);
+
+            
+            
+        } catch (error) {
+            console.log(error);
+            return rejectWithValue("error in delete task")
+            
+        }
+    }
+)
+
 export const fetchTasks=createAsyncThunk(
     'tasks/fetchTasks',
     async(_,{rejectWithValue})=>{
@@ -132,6 +157,20 @@ const taskSlice=createSlice({
         })
         .addCase(createTask.rejected,(state,action)=>{
             state.loading = false;
+            state.error=action.payload
+        })
+        .addCase(deleteTask.pending,(state)=>{
+            state.loading;
+        })
+        .addCase(deleteTask.fulfilled,(state,action)=>{
+            state.load=false
+            const taskId=action.payload
+            console.log('from slice ',taskId);
+            
+            state.tasks=state.tasks.filter((item)=>item._id!==taskId)
+            state.alltasks=state.alltasks.filter((i)=>i._id!==taskId)
+        })
+        .addCase(deleteTask.rejected,(state,action)=>{
             state.error=action.payload
         })
         

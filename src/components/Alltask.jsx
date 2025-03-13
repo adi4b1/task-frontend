@@ -39,6 +39,7 @@ const Alltasks=()=>{
 
     const [modal,setmodal]=useState(false)
     const[message,setmessage]=useState(false)
+   
     // const[isSubmit,setissubmit]=useState(false)
     const [taskdata,settaskdata]=useState({
         taskname:"",
@@ -155,7 +156,9 @@ const Alltasks=()=>{
             </div>
             <div className="taskCards">
            
-                <TaskCom tasks={reversedArray} loading={loading} error={error}
+                <TaskCom tasks={reversedArray}
+                
+                loading={loading} error={error}
               
                 layout={layout}
                 />
@@ -210,6 +213,7 @@ const Alltasks=()=>{
                 </form>
             </div>
            )}
+           
            {layoutmodal&&(
              <div className="forModal">
              <button onClick={closeUIModal} className="closeModalButton">X</button>
