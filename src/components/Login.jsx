@@ -7,7 +7,7 @@ const Login = () => {
             <section>
                 <br />
                 <form className='forLoginDisplay form-control'>
-                    <label htmlFor="">Email</label>
+                 <label htmlFor="">Email</label>
                     <input type="text"  required={true}/>
                     <label htmlFor="">Password</label>
                     <input type="text" required={true}/>
