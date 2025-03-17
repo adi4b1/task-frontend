@@ -15,10 +15,10 @@ const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler}
     // console.log(userId,'nav');
     
     const{tasks,alltasks,loading,layout,layoutmodal}=useSelector((state)=>state.tasks)||[]
-    const total=tasks.map((j)=>j).length
+    // const total=tasks.map((j)=>j).length
     // console.log('total',total);
     
-    const pending=tasks.filter((k)=>!k.isComplete).length
+    // const pending=tasks.filter((k)=>!k.isComplete).length
     
     // console.log('tasks',tasks);
     // console.log('alltasks',alltasks);
@@ -79,14 +79,14 @@ if(radioRef2.current){
             <div className="firstnavInfo">
                 <div className="childOne">
                     <h6>Tasks</h6>
-                    <span className="badge text-bg-info">{total.length}</span>
+                    {/* <span className="badge text-bg-info">{total.length}</span> */}
                 </div>
                 <div className="childOne">
                     <h6>pending</h6>
-                    <span className="badge text-bg-secondary">
+                    {/* <span className="badge text-bg-secondary"> */}
                         {/* {loading&&('loading...')} */}
-                        {pending}
-                    </span>
+                        {/* {pending}
+                    </span> */}
                 </div>
             </div>
             <br />
