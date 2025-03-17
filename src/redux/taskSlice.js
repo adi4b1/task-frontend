@@ -11,7 +11,7 @@ const initialState={
     layoutmodal:false
 }
 
-const token=localStorage.getItem('token');
+
 
 export const createTask=createAsyncThunk(
     'tasks/createTask',
@@ -43,6 +43,7 @@ export const createTask=createAsyncThunk(
 export const deleteTask=createAsyncThunk(
     'tasks/deleteTask',
     async(taskId,{rejectWithValue})=>{
+        const token=localStorage.getItem('token');
         try {
             console.log('from slice function ',typeof taskId);
             const data=await fetch(`https://task-backend-beige.vercel.app/task/deletetask/${taskId}`,{
@@ -71,12 +72,13 @@ export const deleteTask=createAsyncThunk(
 export const fetchTasks=createAsyncThunk(
     'tasks/fetchTasks',
     async(_,{rejectWithValue})=>{
+        const token=localStorage.getItem('token');
         try {
             const response=await fetch('https://task-backend-beige.vercel.app/task/alltasks',{
                 method:"GET",
                 headers:{
                     "Content-Type":"application/json",
-                    // token:token
+                    token:token
                 }
             });
             const data=response.json()
@@ -94,6 +96,7 @@ export const fetchTasks=createAsyncThunk(
 export const updateTask=createAsyncThunk(
     'tasks/updateTask',
     async({taskId,isChecked},{rejectWithValue})=>{
+        const token=localStorage.getItem('token');
         try {
             await fetch(`https://task-backend-beige.vercel.app/task/update-task/${taskId}`,{
                 method:"PATCH",
