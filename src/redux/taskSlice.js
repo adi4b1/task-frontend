@@ -31,7 +31,7 @@ export const createTask=createAsyncThunk(
             })
             if (!response.ok) throw new Error("Failed to submit task");
             const res=await data.json()
-            console.log(res,'from thunk');
+            // console.log(res,'from thunk');
             
             return res
         } catch (error) {
@@ -45,7 +45,7 @@ export const deleteTask=createAsyncThunk(
     async(taskId,{rejectWithValue})=>{
         const token=localStorage.getItem('token');
         try {
-            console.log('from slice function ',typeof taskId);
+            // console.log('from slice function ',typeof taskId);
             const data=await fetch(`https://task-backend-beige.vercel.app/task/deletetask/${taskId}`,{
                 method:"DELETE",
                 headers:{
@@ -82,7 +82,7 @@ export const fetchTasks=createAsyncThunk(
                 }
             });
             const data=response.json()
-            console.log('from slice',data);
+            // console.log('from slice',data);
             
             return data;
         } catch (error) {
@@ -187,7 +187,7 @@ const taskSlice=createSlice({
         .addCase(deleteTask.fulfilled,(state,action)=>{
             state.load=false
             const taskId=action.payload
-            console.log('from slice ',taskId);
+            // console.log('from slice ',taskId);
             
             state.tasks=state.tasks.filter((item)=>item._id!==taskId)
             state.alltasks=state.alltasks.filter((i)=>i._id!==taskId)

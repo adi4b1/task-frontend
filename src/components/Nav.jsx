@@ -4,7 +4,7 @@ import {useState, useRef } from "react"
 
 const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler})=>{
     const username=localStorage.getItem('current username')
-    console.log('from nav',username);
+    // console.log('from nav',username);
     
     const[logoutoption,setlogoutoption]=useState(false)
     
@@ -12,11 +12,11 @@ const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler}
     // const [pri,setpri]=useState("All")
     const dispatch=useDispatch()
     const userId=localStorage.getItem('current user')
-    console.log(userId,'nav');
+    // console.log(userId,'nav');
     
     const{tasks,alltasks,loading,layout,layoutmodal}=useSelector((state)=>state.tasks)||[]
     const total=alltasks.filter((i)=>i.user[0]==userId)
-    console.log('total',total);
+    // console.log('total',total);
     
     const pending=total.filter((k)=>!k.isComplete).length
     
@@ -67,7 +67,7 @@ if(radioRef2.current){
     
     const layoutmodalHandler=()=>{
         dispatch(getlayoutmodal(!layoutmodal))
-        console.log('layoutmodal',layoutmodal);
+        // console.log('layoutmodal',layoutmodal);
         
     }
 

@@ -111,7 +111,7 @@ const Alltasks=()=>{
         // if(targetContent){
             if(e.target.tagName=="H3"){
                 dispatch(getLayout(e.target.textContent))
-                console.log(e.target.textContent);
+                // console.log(e.target.textContent);
             }
             
             

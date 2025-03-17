@@ -26,7 +26,7 @@ const dis=useDispatch()
     }
     const deleteTaskHandler=(taskId)=>{
         dis(deleteTask(taskId))
-        console.log(typeof taskId);
+        // console.log(typeof taskId);
         
     }
     const deletemodalHandler=(taskId)=>{

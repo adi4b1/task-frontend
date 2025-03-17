@@ -24,7 +24,7 @@ const Register = ({ showLogin }) => {
         throw new Error("Registration failed");
       }
       const responseData = await response.json();
-      console.log(responseData);
+    //   console.log(responseData);
 
       setdata({
         username: "",

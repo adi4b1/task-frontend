@@ -21,10 +21,10 @@ const Login = ({showHome}) => {
         }
       );
       if (!res.ok) throw new Error("login failed");
-      console.log('before convert',res);
+    //   console.log('before convert',res);
       
       const loginResponse = await res.json();
-      console.log('log data',loginResponse);
+    //   console.log('log data',loginResponse);
       
       
         localStorage.setItem("token", loginResponse.token);
