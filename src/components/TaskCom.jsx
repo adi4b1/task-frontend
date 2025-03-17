@@ -8,7 +8,7 @@ const TaskCom=({tasks,layout})=>{
     
     // console.log('tasks',tasks);
     const current_user=localStorage.getItem('current user')
-    let filtertasks=tasks.filter((i)=>i.user[0]==current_user)
+    let filtertasks=tasks.filter((i)=>i.user[0]===current_user)
     
     console.log(filtertasks);
     const[activeTaskId,setActiveTaskId]=useState(null)
