@@ -15,10 +15,10 @@ const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler}
     // console.log(userId,'nav');
     
     const{tasks,alltasks,loading,layout,layoutmodal}=useSelector((state)=>state.tasks)||[]
-    const total=tasks.map((j)=>j).filter((i)=>i.user[0]===userId)
+    const total=tasks.map((j)=>j).length
     // console.log('total',total);
     
-    const pending=total.filter((k)=>!k.isComplete).length
+    const pending=tasks.filter((k)=>!k.isComplete).length
     
     // console.log('tasks',tasks);
     // console.log('alltasks',alltasks);
