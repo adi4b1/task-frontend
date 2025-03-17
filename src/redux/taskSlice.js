@@ -76,7 +76,7 @@ export const fetchTasks=createAsyncThunk(
                 method:"GET",
                 headers:{
                     "Content-Type":"application/json",
-                    token:token
+                    // token:token
                 }
             });
             const data=response.json()
