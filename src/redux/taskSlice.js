@@ -16,16 +16,23 @@ const initialState={
 export const createTask=createAsyncThunk(
     'tasks/createTask',
     async(taskdata,{rejectWithValue})=>{
+        const token=localStorage.getItem('token');
+        // const API_URL="http://localhost:4000/task/add-task"
+        const API_URL="https://task-backend-beige.vercel.app/task/add-task"
         try {
-            const data=await fetch('https://task-backend-beige.vercel.app/task/add-task',{
+            const data=await fetch(API_URL,{
                 method:"POST",
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    token:token,
+                    
                 },
                 body:JSON.stringify(taskdata)
             })
             if (!response.ok) throw new Error("Failed to submit task");
             const res=await data.json()
+            console.log(res,'from thunk');
+            
             return res
         } catch (error) {
             return rejectWithValue("error in creating task")            
@@ -64,6 +71,8 @@ export const fetchTasks=createAsyncThunk(
         try {
             const response=await fetch('https://task-backend-beige.vercel.app/task/alltasks');
             const data=response.json()
+            console.log('from slice',data);
+            
             return data;
         } catch (error) {
             return rejectWithValue("Failed to fetch")

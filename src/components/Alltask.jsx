@@ -39,7 +39,8 @@ const Alltasks=()=>{
 
     const [modal,setmodal]=useState(false)
     const[message,setmessage]=useState(false)
-   
+    const[pending,setpending]=useState(false)
+    const[completed,setcompleted]=useState(false)
     // const[isSubmit,setissubmit]=useState(false)
     const [taskdata,settaskdata]=useState({
         taskname:"",
@@ -85,7 +86,7 @@ const Alltasks=()=>{
         }
         finally{
             
-                setmessage(!message)
+                setmessage(false)
             
             dispatch(fetchTasks())
             settaskdata({
@@ -125,6 +126,16 @@ const Alltasks=()=>{
     //     dispatch(getLayout("Rectangle"))
     //     console.log('layout',layout);
     // }
+    const pendingClickHandler=(e)=>{
+        setpending(true)
+        setcompleted(false)
+        dispatch(getisComplete(Boolean(0)))
+    }
+    const completeClickHandler=(e)=>{
+        setpending(false)
+        setcompleted(true)
+        dispatch(getisComplete(Boolean(1)))
+    }
     return(
   
         <div className="headerAllTask">
@@ -140,11 +151,16 @@ const Alltasks=()=>{
             </div> 
             <hr />
             <div className="actions">
-                <button>Pending</button>
-                <button>
-                    completed
+                <button  
+                onClick={pendingClickHandler}
+                style={pending?{color:'green',border:"2px solid green"}:{}}>Pending</button>
+                <button
+                onClick={completeClickHandler}
+                style={completed?{color:'green',border:"2px solid green"}:{}}>
+                    Completed
                 </button>
             </div>
+            <hr />
             <div>
             <div className="forLoading">
             {loading&&(

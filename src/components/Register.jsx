@@ -39,10 +39,11 @@ const Register = ({ showLogin }) => {
     <>
       <div>
         <br />
-        <section>
+        <section className="forRegisterDisplay">
           <form
+          align="center"
             onSubmit={registerHandler}
-            className="forRegisterDisplay form-control"
+            className=" card form-control"
           >
             <label htmlFor="">Username</label>
             <input
@@ -54,7 +55,7 @@ const Register = ({ showLogin }) => {
                 setdata({ ...data, [e.target.name]: e.target.value })
               }
             />
-
+<br />
             <label htmlFor="">Email</label>
             <input
               type="email"
@@ -65,7 +66,7 @@ const Register = ({ showLogin }) => {
                 setdata({ ...data, [e.target.name]: e.target.value })
               }
             />
-
+<br />
             <label htmlFor="">Password</label>
             <input
               type="password"
@@ -76,6 +77,7 @@ const Register = ({ showLogin }) => {
                 setdata({ ...data, [e.target.name]: e.target.value })
               }
             />
+            <br />
 
             <input type="submit" value="Register" />
             <span>

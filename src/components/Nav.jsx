@@ -2,14 +2,23 @@ import { useSelector,useDispatch } from "react-redux"
 import {getPriority,getisComplete,getlayoutmodal} from '../redux/taskSlice'
 import {useState, useRef } from "react"
 
-const Nav=()=>{
-
+const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler})=>{
+    const username=localStorage.getItem('current username')
+    console.log('from nav',username);
     
+    const[logoutoption,setlogoutoption]=useState(false)
+    
+   
     // const [pri,setpri]=useState("All")
     const dispatch=useDispatch()
-    const{tasks,alltasks,layout,layoutmodal}=useSelector((state)=>state.tasks)||[]
-    const total=alltasks.map((i)=>i).length
-    const pending=tasks.filter((k)=>!k.isComplete).length
+    const userId=localStorage.getItem('current user')
+    console.log(userId,'nav');
+    
+    const{tasks,alltasks,loading,layout,layoutmodal}=useSelector((state)=>state.tasks)||[]
+    const total=alltasks.filter((i)=>i.user[0]==userId)
+    console.log('total',total);
+    
+    const pending=total.filter((k)=>!k.isComplete).length
     
     // console.log('tasks',tasks);
     // console.log('alltasks',alltasks);
@@ -61,21 +70,38 @@ if(radioRef2.current){
         console.log('layoutmodal',layoutmodal);
         
     }
+
+    const logoutoptionHandler=()=>{
+        setlogoutoption(!logoutoption)
+    }
     return(
         <div className="navInfo">
-            
-            <div>
+            <div className="firstnavInfo">
+                <div className="childOne">
+                    <h6>Tasks</h6>
+                    <span className="badge text-bg-info">{total.length}</span>
+                </div>
+                <div className="childOne">
+                    <h6>pending</h6>
+                    <span className="badge text-bg-secondary">
+                        {/* {loading&&('loading...')} */}
+                        {pending}
+                    </span>
+                </div>
+            </div>
+            <br />
+            <div className="secondNavInfo">
                 <h4>Filters</h4>
-                <h6>Tasks:{total}</h6>
-                <h6>pending:{pending}</h6>
+                
                 <hr />
                 <label >Priority</label>
                 <div key="All">
                 <input type="radio" name="priority"
                 onChange={priorityRadioHandler}
+               class="form-check-input"
                 value="All" defaultChecked 
                 />
-                
+                &nbsp;
                 <label htmlFor="All">All</label><br />
 
                 </div>
@@ -86,11 +112,12 @@ if(radioRef2.current){
                             
                            <input type="radio" 
                             name="priority"
+                            class="form-check-input"
                             onChange={priorityRadioHandler}
                             value={item}
                             />
-                            
-                            <label>{item}</label>
+                            &nbsp;
+                            <label htmlFor={item}>{item}</label>
                         </div>
                     ))
                 ):(
@@ -98,9 +125,9 @@ if(radioRef2.current){
                 <span className="visually-hidden">Loading...</span>
               </div>
                 )}
-                <hr />
-                <label htmlFor="Status">Status</label>
-                <span onClick={removefilter}>❌filter</span>
+                {/* <hr /> */}
+                {/* <label htmlFor="Status">Status</label>
+                <span onClick={removefilter}><i class="bi bi-filter"></i></span>
                 <div>
                     
                 <input type="radio" className="" 
@@ -119,13 +146,33 @@ if(radioRef2.current){
                 onChange={isCompleteOnChange}
                 />
                 <label htmlFor="false">pending</label>
-                </div>
+                </div> */}
                 <hr />
-                <section>
-                    <h6 style={{cursor:"pointer"}} onClick={layoutmodalHandler}>Change Layout  <span>➡️</span></h6>
+                <section className="changeLayout">
+                    <h6 style={{cursor:"pointer"}} onClick={layoutmodalHandler}>Change Layout</h6>
+                    <span><i class="bi bi-arrow-left-right"></i></span>
+                </section>
+<hr />
+                <section className="usernameDisplay" onClick={logoutoptionHandler}>
+                    <div  
+                    className="imageClass"
+                    >
+                        <span>{username.slice(0,2)}</span>
+                        
+                    </div>
+                    <h6 style={{cursor:"pointer"}}>{username.substr(0,12)}</h6>
+                    <span><i class="bi bi-chevron-right"></i></span>
+                   
                    
                 </section>
-               
+                {logoutoption&&(
+                    <section className="logoutClass">
+                    <span onClick={LogoutHandler} 
+                   
+                    className="logoutButton"
+                    ><i class="bi bi-box-arrow-right"></i> &nbsp;Logout</span>
+                   </section>
+                   )}
                
             </div>
         </div>

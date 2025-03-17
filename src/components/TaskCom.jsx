@@ -4,7 +4,13 @@ import {useDispatch } from "react-redux"
 import {updateTask,deleteTask } from "../redux/taskSlice"
 import { useState } from "react"
 const TaskCom=({tasks,layout})=>{
+    
+    
     // console.log('tasks',tasks);
+    const current_user=localStorage.getItem('current user')
+    let filtertasks=tasks.filter((i)=>i.user[0]==current_user)
+    
+    console.log(filtertasks);
     const[activeTaskId,setActiveTaskId]=useState(null)
 const dis=useDispatch()
     
@@ -63,12 +69,13 @@ const dis=useDispatch()
 
     return(
         <>
-            
+            {current_user?(<>
                 {
-                    tasks?.map((i)=>{
+                    filtertasks?.map((i)=>{
                         return(
-                          
-                                <div key={i._id} className={layout=="Square"?'taskBody':"taskBodyRect"}>
+                                <>
+                                
+                                    <div key={i._id} className={layout==="Square"?'taskBody':"taskBodyRect"}>
                                     <div>
                                         {/* <p>{i._id}</p> */}
                                         <h6 className={i.isComplete?'checkedtaskname':'taskname'} title={i.taskname} >{i.taskname.substr(0,100)}</h6>
@@ -88,32 +95,39 @@ const dis=useDispatch()
                                         }>
                                             <input type="checkbox" name="isComplete"
                                             checked={i.isComplete}
-                                            className="isCheck"
+                                            className="isCheck rounded-checkbox"
+                                            
                                             onChange={(e)=>isCheckedHandler(i._id,e.target.checked)}
                                             />
                                             <label htmlFor="isComplete">{i.priority}</label>
                                            
                                         </div>
-                            <span onClick={()=>deletemodalHandler(i._id)} >❌</span>
+                                    <span onClick={()=>deletemodalHandler(i._id)} >❌</span>
                                          {/* <span onClick={()=>deleteTaskHandler(i._id)}>❌</span> */}
                                     </div>
                                     {
-                                        activeTaskId==i._id&&(
+                                        activeTaskId===i._id&&(
                                             <div className="card fordeleteModalContainer">
                                             <span onClick={closeDeleteModal} className="closeModalButton">X</span>
                                             <span>Are you sure you want to delete ?</span>
                                             <button className="btn btn-danger" onClick={() => deleteTaskHandler(i._id)}>Yes, Delete</button>
                                             {/* <button onClick={closeDeleteModal}>Cancel</button> */}
-                                            <p>{i.taskname.substr(0,20)}</p>
+                                            {/* <p>{i.taskname.substr(0,20)}</p> */}
                                             </div>
                                             
                                         )
                                     }
                                 </div>
+                               
+                                     
+                                </>
+                               
                            
                         )
                     })
                 }
+            </>):(<>no tasks found</>)}
+                
         </>
     )
 }

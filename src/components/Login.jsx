@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Login = () => {
+const Login = ({showHome}) => {
   const [logindata, setlogindata] = useState({
     email: "",
     password: "",
@@ -11,6 +11,7 @@ const Login = () => {
     try {
       const res = await fetch(
         "https://task-backend-beige.vercel.app/user/login",
+        // "http://localhost:4000/user/login",
         {
           method: "POST",
           headers: {
@@ -20,16 +21,22 @@ const Login = () => {
         }
       );
       if (!res.ok) throw new Error("login failed");
-
+      console.log('before convert',res);
+      
       const loginResponse = await res.json();
-      if (res.ok) {
+      console.log('log data',loginResponse);
+      
+      
         localStorage.setItem("token", loginResponse.token);
-        console.log(loginResponse.token);
+        localStorage.setItem("current user",loginResponse.userId)
+        localStorage.setItem("current username",loginResponse.username)
+        showHome()
+        // console.log(loginResponse.token);
         setlogindata({
           email: "",
           password: "",
         });
-      }
+      
     } catch (error) {
       console.log(error);
     }

@@ -2,23 +2,33 @@
   background-color: #F4F2EE;
 } */
 .mainComponentBody{
-  display: flex;
-  justify-content: center;
+  display: grid;
+  /* place-items: center; */
+  /* justify-content: center; */
   height:100vh;
   /* align-content: center; */
   /* width:100vw; */
-  align-items: center;
+  /* align-items: center; */
 }
 .forRegisterDisplay,.forLoginDisplay{
-  display: flex;
-  flex-direction: column;
-  gap:5px;
+  display: grid;
+  /* flex-direction: column;
+  justify-content: center; */
+  place-items: center;
+ width:99%;
+ max-width:25vw;
+ margin-left:480px;
+  height:auto; 
+  gap:10px;
+  
 
 }
 .mainBlock{
   display: flex;
   flex-direction: row;
   grid-gap:20px;
+  /* max-width:100%;
+  width:99%; */
   padding:10px;
   
 }
@@ -36,21 +46,89 @@
   border-radius: 15px;
   
 }
-.navInfo{
+.firstnavInfo{
   background-color: #ffffff;
-  max-width:200px;
+  max-width:250px;
+  max-height:80px;
+  border-radius: 8px;
+  height:99%;
+  /* border:1px solid gray; */
+  box-shadow: 1px 1px 5px gray;
+  width:99%;
+  padding:10px;
+  color:gray;
+  display:flex;
+  gap:3px;
+  flex-direction:column;
+}
+
+.secondNavInfo{
+  background-color: #ffffff;
+  max-width:250px;
+  max-height:450px;
+  border-radius: 8px;
+  height:99%;
+  box-shadow: 1px 1px 5px gray;
+  width:99%;
+  padding:20px;
+  color:gray;
+  /* display:flex; */
+  /* gap:3px; */
+}
+.childOne{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.firstnavInfo h6{
+  font-size: 14px;
+}
+.navInfo{
+  /* background-color: #ffffff; */
+  max-width:250px;
   max-height:auto;
   height:99%;
   width:99%;
   padding:20px;
 }
+.rounded-checkbox {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  appearance: none;
+  background-color: white;
+  border: 2px solid #007bff;
+  outline: none;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+}
+
+.rounded-checkbox:checked {
+  background-color: #007bff;
+  border: 2px solid #007bff;
+}
+
+.rounded-checkbox:checked::after {
+  content: '✔';
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .headerAllTask{
   background-color: #ffffff;
   max-width:950px;
   max-height:auto;
+  border-radius: 14px;
+  box-shadow: 1px 1px 4px gray;
   height:99%;
   width:99%;
-  padding:20px;
+  padding:15px;
 }
 .taskBlock{
   display: flex;
@@ -253,4 +331,59 @@ text-align: justify;
   width:15px;
   cursor:pointer;
   border-radius: 50%;
+}
+.changeLayout{
+  display: flex;
+  padding:10px;
+  cursor: pointer;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.imageClass{
+  height:30px;
+  width:30px;
+  border-radius: 50%;
+  background-color: antiquewhite;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+}
+.changeLayout:hover{
+  background-color: lightgray;
+}
+.usernameDisplay{
+  display: flex;
+  /* position: relative; */
+  padding:2px;
+  align-items: center;
+  cursor: pointer;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.logoutClass{
+  /* position:absolute; */
+  background-color: white;
+  left:240px;
+  padding:10px;
+
+  height:auto;
+  width:180px;
+  /* border:1px solid red; */
+  box-shadow: 1px 1px 15px lightgray;
+  min-height:40px;
+
+}
+.logoutButton{
+  cursor: pointer;
+  width:190px;
+}
+/* .logoutButton:hover{
+  background-color: aliceblue;
+} */
+.usernameDisplay:hover{
+
+  background-color: lightgray;
 }
