@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_URL } from "./api";
 
 const Login = ({showHome}) => {
   const [logindata, setlogindata] = useState({
@@ -10,7 +11,7 @@ const Login = ({showHome}) => {
     e.preventDefault();
     try {
       const res = await fetch(
-        "https://task-backend-beige.vercel.app/user/login",
+        `${API_URL}/user/login`,
         // "http://localhost:4000/user/login",
         {
           method: "POST",

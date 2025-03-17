@@ -15,8 +15,8 @@ const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler}
     // console.log(userId,'nav');
     
     const{tasks,alltasks,loading,layout,layoutmodal}=useSelector((state)=>state.tasks)||[]
-    const total=alltasks.filter((i)=>i.user[0]===userId)
-    // console.log('total',total);
+    const total=tasks.filter((i)=>i.user[0]===userId)
+    console.log('total',total);
     
     const pending=total.filter((k)=>!k.isComplete).length
     

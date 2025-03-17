@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { API_URL } from "./api";
 const Register = ({ showLogin }) => {
   const [data, setdata] = useState({
     username: "",
@@ -11,7 +11,7 @@ const Register = ({ showLogin }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://task-backend-beige.vercel.app/user/register",
+        `${API_URL}/user/register`,
         {
           method: "POST",
           headers: {

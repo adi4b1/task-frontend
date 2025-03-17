@@ -1,6 +1,6 @@
 import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 // import Alltasks from "../components/Alltask";
-
+import { API_URL } from "../components/api.js";
 
 const initialState={
     loading:false,
@@ -18,9 +18,9 @@ export const createTask=createAsyncThunk(
     async(taskdata,{rejectWithValue})=>{
         const token=localStorage.getItem('token');
         // const API_URL="http://localhost:4000/task/add-task"
-        const API_URL="https://task-backend-beige.vercel.app/task/add-task"
+        
         try {
-            const data=await fetch(API_URL,{
+            const data=await fetch(`${API_URL}/task/add-task`,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
@@ -46,7 +46,7 @@ export const deleteTask=createAsyncThunk(
         const token=localStorage.getItem('token');
         try {
             // console.log('from slice function ',typeof taskId);
-            const data=await fetch(`https://task-backend-beige.vercel.app/task/deletetask/${taskId}`,{
+            const data=await fetch(`${API_URL}/task/deletetask/${taskId}`,{
                 method:"DELETE",
                 headers:{
                     token:token
@@ -73,8 +73,10 @@ export const fetchTasks=createAsyncThunk(
     'tasks/fetchTasks',
     async(_,{rejectWithValue})=>{
         const token=localStorage.getItem('token');
+        console.log('from fetch function',token);
+        
         try {
-            const response=await fetch('https://task-backend-beige.vercel.app/task/alltasks',{
+            const response=await fetch(`${API_URL}/task/alltasks`,{
                 method:"GET",
                 headers:{
                     "Content-Type":"application/json",
@@ -82,7 +84,7 @@ export const fetchTasks=createAsyncThunk(
                 }
             });
             const data=response.json()
-            // console.log('from slice',data);
+            console.log('from slice fetch',data);
             
             return data;
         } catch (error) {
@@ -98,7 +100,7 @@ export const updateTask=createAsyncThunk(
     async({taskId,isChecked},{rejectWithValue})=>{
         const token=localStorage.getItem('token');
         try {
-            await fetch(`https://task-backend-beige.vercel.app/task/update-task/${taskId}`,{
+            await fetch(`${API_URL}/task/update-task/${taskId}`,{
                 method:"PATCH",
                 headers:{
                     "Content-Type":"application/json",
@@ -128,7 +130,7 @@ const taskSlice=createSlice({
 
             }else{
 
-                state.tasks=state.alltasks.filter((item)=>item.priority==action.payload)
+                state.tasks=state.alltasks.filter((item)=>item.priority===action.payload)
               
             }  
         },
