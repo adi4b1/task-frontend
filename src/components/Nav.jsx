@@ -15,8 +15,8 @@ const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler}
     // console.log(userId,'nav');
     
     const{tasks,alltasks,loading,layout,layoutmodal}=useSelector((state)=>state.tasks)||[]
-    const total=tasks.filter((i)=>i.user[0]===userId)
-    console.log('total',total);
+    const total=alltasks.filter((i)=>i.user[0]===userId)
+    // console.log('total',total);
     
     const pending=total.filter((k)=>!k.isComplete).length
     
@@ -39,31 +39,31 @@ const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler}
         
     }
 
-    const isCompleteOnChange=(e)=>{
+    // const isCompleteOnChange=(e)=>{
         
-        let value=Number(e.target.value)
-        // console.log(typeof value);
+    //     let value=Number(e.target.value)
+    //     // console.log(typeof value);
         
         
-        dispatch(getisComplete(Boolean(value)))
-        // dispatch(getPriority("All"))
-    }
+    //     dispatch(getisComplete(Boolean(value)))
+    //     // dispatch(getPriority("All"))
+    // }
     const radioRef1=useRef(null)
     const radioRef2=useRef(null)
-    const removefilter=(e)=>{
-        // dispatch(getisComplete(''))
-if(radioRef1.current){
-    radioRef1.current.checked=false;
-    // dispatch(getPriority('All'))
+//     const removefilter=(e)=>{
+//         // dispatch(getisComplete(''))
+// if(radioRef1.current){
+//     radioRef1.current.checked=false;
+//     // dispatch(getPriority('All'))
 
-}
-if(radioRef2.current){
-    radioRef2.current.checked=false;
-    // dispatch(getPriority('All'))
-}
+// }
+// if(radioRef2.current){
+//     radioRef2.current.checked=false;
+//     // dispatch(getPriority('All'))
+// }
         
 
-    }
+    // }
     
     const layoutmodalHandler=()=>{
         dispatch(getlayoutmodal(!layoutmodal))
@@ -98,7 +98,7 @@ if(radioRef2.current){
                 <div key="All">
                 <input type="radio" name="priority"
                 onChange={priorityRadioHandler}
-               class="form-check-input"
+               className="form-check-input"
                 value="All" defaultChecked 
                 />
                 &nbsp;
@@ -112,7 +112,7 @@ if(radioRef2.current){
                             
                            <input type="radio" 
                             name="priority"
-                            class="form-check-input"
+                            className="form-check-input"
                             onChange={priorityRadioHandler}
                             value={item}
                             />
@@ -150,7 +150,7 @@ if(radioRef2.current){
                 <hr />
                 <section className="changeLayout">
                     <h6 style={{cursor:"pointer"}} onClick={layoutmodalHandler}>Change Layout</h6>
-                    <span><i class="bi bi-arrow-left-right"></i></span>
+                    <span><i className="bi bi-arrow-left-right"></i></span>
                 </section>
 <hr />
                 <section className="usernameDisplay" onClick={logoutoptionHandler}>
@@ -161,7 +161,7 @@ if(radioRef2.current){
                         
                     </div>
                     <h6 style={{cursor:"pointer"}}>{username.substr(0,12)}</h6>
-                    <span><i class="bi bi-chevron-right"></i></span>
+                    <span><i className="bi bi-chevron-right"></i></span>
                    
                    
                 </section>
@@ -170,7 +170,7 @@ if(radioRef2.current){
                     <span onClick={LogoutHandler} 
                    
                     className="logoutButton"
-                    ><i class="bi bi-box-arrow-right"></i> &nbsp;Logout</span>
+                    ><i className="bi bi-box-arrow-right"></i> &nbsp;Logout</span>
                    </section>
                    )}
                

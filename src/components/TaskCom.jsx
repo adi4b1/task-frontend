@@ -1,18 +1,19 @@
 // import { useEffect } from "react"
-import {useDispatch } from "react-redux"
+import {useDispatch,useSelector } from "react-redux"
 
 import {updateTask,deleteTask } from "../redux/taskSlice"
 import { useState } from "react"
-const TaskCom=({tasks,layout})=>{
+const TaskCom=({tasks,alltasks,layout})=>{
+    
     
     
     // console.log('tasks',tasks);
     const current_user=localStorage.getItem('current user')
-    console.log('from task com user',current_user,typeof current_user);
+    // console.log('from task com user',current_user,typeof current_user);
     
-    let filtertasks=tasks.filter((i)=>i.user[0]===current_user)
+    let filtertasks=tasks?.filter((i)=>i.user[0]===current_user)
     
-    console.log(filtertasks);
+    // console.log(filtertasks);
     const[activeTaskId,setActiveTaskId]=useState(null)
 const dis=useDispatch()
     

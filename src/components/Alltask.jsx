@@ -27,10 +27,12 @@ import { useDispatch,useSelector } from "react-redux"
 const Alltasks=()=>{
 
     const dispatch=useDispatch()
-    const{tasks,loading,error,layout,layoutmodal}=useSelector((state)=>state.tasks)
+    const{alltasks,tasks,loading,error,layout,layoutmodal}=useSelector((state)=>state.tasks)
+    
     // const[radioValue,setradioValue]=useState(intialRadio)
     useEffect(()=>{
             dispatch(fetchTasks()) 
+            
     },[dispatch])
 
     
@@ -173,7 +175,7 @@ const Alltasks=()=>{
             <div className="taskCards">
            
                 <TaskCom tasks={reversedArray}
-                
+                alltasks={alltasks}
                 loading={loading} error={error}
               
                 layout={layout}

@@ -12,7 +12,6 @@ const initialState={
 }
 
 
-
 export const createTask=createAsyncThunk(
     'tasks/createTask',
     async(taskdata,{rejectWithValue})=>{
@@ -73,7 +72,7 @@ export const fetchTasks=createAsyncThunk(
     'tasks/fetchTasks',
     async(_,{rejectWithValue})=>{
         const token=localStorage.getItem('token');
-        console.log('from fetch function',token);
+        // console.log('from fetch function',token);
         
         try {
             const response=await fetch(`${API_URL}/task/alltasks`,{
@@ -84,7 +83,7 @@ export const fetchTasks=createAsyncThunk(
                 }
             });
             const data=response.json()
-            console.log('from slice fetch',data);
+            // console.log('from slice fetch',data);
             
             return data;
         } catch (error) {
