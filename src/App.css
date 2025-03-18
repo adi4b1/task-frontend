@@ -129,12 +129,19 @@
   height:99%;
   width:99%;
   padding:15px;
+  filter: drop-shadow(0 0 1em #e2e2e4aa);
 }
 .taskBlock{
   display: flex;
   flex-direction:row;
   align-items: center;
   justify-content: space-between;
+}
+.Title{
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  color:rgb(55, 150, 234);
+  /* font-variant: small; */
 }
 .taskCards{
   /* background-color: wheat; */
@@ -207,6 +214,7 @@ height:400px;
   border:2px solid black;
   transition: 0.1s all ease-in;
   cursor: pointer;
+  
 }
 .forSection{
   display:flex;
@@ -347,7 +355,7 @@ text-align: justify;
   background-color: antiquewhite;
   display:flex;
   justify-content: center;
-  align-items: center;
+  align-items:flex-start;
   align-content: center;
 
 }

@@ -71,7 +71,7 @@ export const deleteTask=createAsyncThunk(
 export const fetchTasks=createAsyncThunk(
     'tasks/fetchTasks',
     async(_,{rejectWithValue})=>{
-        const token=localStorage.getItem('token');
+        // const token=localStorage.getItem('token');
         // console.log('from fetch function',token);
         
         try {
@@ -79,7 +79,7 @@ export const fetchTasks=createAsyncThunk(
                 method:"GET",
                 headers:{
                     "Content-Type":"application/json",
-                    token:token
+                    // token:token
                 }
             });
             const data=response.json()

@@ -142,7 +142,7 @@ const Alltasks=()=>{
   
         <div className="headerAllTask">
             <div className="taskBlock">
-                <h3>Tasks</h3>
+                <h3 className="Title">Taskify</h3>
                 <h3 
                 onClick={refreshHandler}
                 className="btn btn-outline-primary"
@@ -155,10 +155,10 @@ const Alltasks=()=>{
             <div className="actions">
                 <button  
                 onClick={pendingClickHandler}
-                style={pending?{color:'green',border:"2px solid green"}:{}}>Pending</button>
+                style={pending?{color:'white',border:"2px solid green",backgroundColor:'green'}:{}}>Pending</button>
                 <button
                 onClick={completeClickHandler}
-                style={completed?{color:'green',border:"2px solid green"}:{}}>
+                style={completed?{color:'white',border:"2px solid green",backgroundColor:'green'}:{}}>
                     Completed
                 </button>
             </div>
