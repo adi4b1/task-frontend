@@ -3,8 +3,8 @@ import React from 'react'
 const Welcome = () => {
   return (
     <>
-        <h1>Taskify</h1>
-        <h3>Welcome to Taskify 🙏</h3>
+        <h1 className='Title'>Taskify</h1>
+        <h4>Welcome to Taskify 🙏</h4>
     </>
   )
 }

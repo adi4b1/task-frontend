@@ -10,22 +10,21 @@ const Register = ({ showLogin }) => {
   const registerHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(
-        `${API_URL}/user/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const response = await fetch(`${API_URL}/user/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
       if (!response.ok) {
         throw new Error("Registration failed");
       }
       const responseData = await response.json();
-    //   console.log(responseData);
-
+      //   console.log(responseData);
+      if(response.ok){
+        showLogin()
+      }
       setdata({
         username: "",
         email: "",
@@ -37,55 +36,60 @@ const Register = ({ showLogin }) => {
   };
   return (
     <>
-      <div>
-        <br />
-        <section className="forRegisterDisplay">
-          <form
+      {/* <div> */}
+      
+      <section className="forRegisterDisplay">
+        <form
           align="center"
-            onSubmit={registerHandler}
-            className=" card form-control"
-          >
-            <label htmlFor="">Username</label>
-            <input
-              type="text"
-              name="username"
-              required={true}
-              value={data.username}
-              onChange={(e) =>
-                setdata({ ...data, [e.target.name]: e.target.value })
-              }
-            />
-<br />
-            <label htmlFor="">Email</label>
-            <input
-              type="email"
-              name="email"
-              required={true}
-              value={data.email}
-              onChange={(e) =>
-                setdata({ ...data, [e.target.name]: e.target.value })
-              }
-            />
-<br />
-            <label htmlFor="">Password</label>
-            <input
-              type="password"
-              name="password"
-              required={true}
-              value={data.password}
-              onChange={(e) =>
-                setdata({ ...data, [e.target.name]: e.target.value })
-              }
-            />
-            <br />
+          onSubmit={registerHandler}
+          className="card forForm"
+        >
+          {/* <label htmlFor="">Username</label> */}
+          <input
+            type="text"
+            name="username"
+            required={true}
+            placeholder="enter username"
+            value={data.username}
+            onChange={(e) =>
+              setdata({ ...data, [e.target.name]: e.target.value })
+            }
+          />
+          <br />
+          {/* <label htmlFor="">Email</label> */}
+          <input
+            type="email"
+            name="email"
+            required={true}
+            placeholder="enter email"
+            value={data.email}
+            onChange={(e) =>
+              setdata({ ...data, [e.target.name]: e.target.value })
+            }
+          />
+          <br />
+          {/* <label htmlFor="">Password</label> */}
+          <input
+            type="password"
+            name="password"
+            required={true}
+            placeholder="enter password"
+            value={data.password}
+            onChange={(e) =>
+              setdata({ ...data, [e.target.name]: e.target.value })
+            }
+          />
+          <br />
 
-            <input type="submit" value="Register" />
-            <span>
-              already register?<a onClick={showLogin}>login</a>
-            </span>
-          </form>
-        </section>
-      </div>
+          <button type="submit"className="btn btn-success">Register</button>
+          <span>
+            already register?&nbsp;<a onClick={showLogin}
+            style={{cursor:"pointer"}}
+            >login</a>
+          </span>
+        </form>
+      </section>
+      {/* </div> */}
     </>
   );
 };

@@ -72,30 +72,30 @@ const index = () => {
   return (
     <>
         {/* <Home/> */}
-       <div className='mainComponentBody'>
+       {/* <div className='mainComponentBody'> */}
             <section align="center">
                {landing&&<landing/>}
                 {!home &&(
                   <section align="center">
                    <Welcome/>
                    <br />
-                    <button className='btn btn-info'
+                    {/* <button className='btn btn-info'
                   onClick={showRegister}
                   >Register</button>
                   <button className='btn btn-success'
                   onClick={showLogin}
-                  >Login</button>
+                  >Login</button> */}
                   </section>
                 )}
 
                 {/* ///for components display */}
                 {loading&&<p>Loading........</p>}
                 {register&&<Register showLogin={showLogin}/>}
-                {login&&<Login showHome={showHome}/>}
+                {login&&<Login showHome={showHome} showRegister={showRegister}/>}
                 
             </section>
-            {home&&<Home LogoutHandler={LogoutHandler} getBooleanFromStorage={getBooleanFromStorage} showRegister={showRegister} showLogin={showLogin} showHome={showHome} />}
-       </div>
+            {home&&<Home LogoutHandler={LogoutHandler} getBooleanFromStorage={getBooleanFromStorage} />}
+       {/* </div> */}
        
     </>
   )

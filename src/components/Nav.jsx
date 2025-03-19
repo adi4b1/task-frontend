@@ -2,7 +2,7 @@ import { useSelector,useDispatch } from "react-redux"
 import {getPriority,getisComplete,getlayoutmodal} from '../redux/taskSlice'
 import {useState, useRef } from "react"
 
-const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler})=>{
+const Nav=({LogoutHandler})=>{
     const username=localStorage.getItem('current username')
     // console.log('from nav',username);
     
@@ -91,9 +91,7 @@ const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler}
             </div>
             <br />
             <div className="secondNavInfo">
-                <h4>Filters</h4>
-                
-                <hr />
+                <h5>Filters</h5>
                 <label >Priority</label>
                 <div key="All">
                 <input type="radio" name="priority"
@@ -152,7 +150,7 @@ const Nav=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler}
                     <h6 style={{cursor:"pointer"}} onClick={layoutmodalHandler}>Change Layout</h6>
                     <span><i className="bi bi-arrow-left-right"></i></span>
                 </section>
-<hr />
+{/* <hr /> */}
                 <section className="usernameDisplay" onClick={logoutoptionHandler}>
                     <div  
                     className="imageClass"

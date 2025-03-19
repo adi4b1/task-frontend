@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { API_URL } from "./api";
 
-const Login = ({showHome}) => {
+const Login = ({showHome,showRegister}) => {
   const [logindata, setlogindata] = useState({
     email: "",
     password: "",
@@ -42,16 +42,19 @@ const Login = ({showHome}) => {
       console.log(error);
     }
   };
+  const gotoRegister=()=>{
+    showRegister()
+  }
   return (
     <>
-      <div>
-        <section>
+     
+        <section className="forLoginDisplay">
           <br />
           <form
             onSubmit={loginSubmitHandler}
-            className="forLoginDisplay form-control"
+            className="card forForm"
           >
-            <label htmlFor="">Email</label>
+            {/* <label htmlFor="">Email</label> */}
             <input
               type="email"
               required={true}
@@ -60,23 +63,28 @@ const Login = ({showHome}) => {
                 setlogindata({ ...logindata, [e.target.name]: e.target.value })
               }
               value={logindata.email}
+              placeholder="enter email"
             />
-
-            <label htmlFor="">Password</label>
+<br />
+            {/* <label htmlFor="">Password</label> */}
             <input
               type="password"
               required={true}
               name="password"
               value={logindata.password}
+              placeholder="enter password"
               onChange={(e) =>
                 setlogindata({ ...logindata, [e.target.name]: e.target.value })
               }
             />
-
-            <input type="submit" value="Login" />
+<br />
+            <button type="submit" className="btn btn-success">Login</button>
+            <h6>Create a account? &nbsp;<span onClick={gotoRegister} 
+            style={{cursor:"pointer"}}
+            >Register</span></h6>
           </form>
         </section>
-      </div>
+     
     </>
   );
 };

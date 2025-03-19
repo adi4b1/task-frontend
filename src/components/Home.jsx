@@ -1,12 +1,12 @@
-import Nav from './Nav'
+// import Nav from './Nav'
 import Alltasks from './Alltask'
 
-const Home=({getBooleanFromStorage,showRegister,showLogin,showHome,LogoutHandler})=>{
+const Home=({LogoutHandler})=>{
     return(
-        <div className='mainBlock'>
-            <Nav LogoutHandler={LogoutHandler} getBooleanFromStorage={getBooleanFromStorage} showRegister={showRegister} showLogin={showLogin} showHome={showHome}/>
-            <Alltasks/>
-        </div>
+        <>
+            {/* <Nav LogoutHandler={LogoutHandler} getBooleanFromStorage={getBooleanFromStorage} showRegister={showRegister} showLogin={showLogin} showHome={showHome}/> */}
+            <Alltasks LogoutHandler={LogoutHandler}/>
+        </>
     )
 }
 
