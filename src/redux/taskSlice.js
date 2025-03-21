@@ -69,7 +69,16 @@ export const deleteTask = createAsyncThunk(
         },
       });
       if (!data.ok) throw new Error("failed to delete");
-
+      toast.warning("Task deleted success ✅😀", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       return taskId;
       // console.log(data);
     } catch (error) {
@@ -116,9 +125,29 @@ export const updateTask = createAsyncThunk(
         },
         body: JSON.stringify({ isComplete: isChecked }),
       });
+      toast.success("Task updated success ✅😀", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       return { taskId, isChecked };
     } catch (error) {
       console.log(error);
+      toast.error("Task is not updated ❌", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       return rejectWithValue("getting error to update task");
     }
   }

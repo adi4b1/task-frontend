@@ -175,8 +175,8 @@ const Alltasks = ({ LogoutHandler }) => {
       inpref.current.setAttribute("min", getDate);
     }
     setminDate(getDate);
-    console.log(getDate);
-    console.log(inpref);
+    // console.log(getDate);
+    // console.log(inpref);
   };
 
   return (

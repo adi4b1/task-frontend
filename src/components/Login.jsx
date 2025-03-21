@@ -52,9 +52,9 @@ const Login = ({ showHome, showRegister }) => {
       });
     } catch (error) {
       console.log(error);
-    //   toast.error(`${error.message} check username or password`, {
-    //     position: "top-right",
-    //   });
+      toast.error(`${error.message} check username or password`, {
+        position: "top-right",
+      });
     }
     setloginstatus(false);
   };

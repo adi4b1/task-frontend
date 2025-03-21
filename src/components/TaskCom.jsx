@@ -19,6 +19,7 @@ const TaskCom = ({ tasks, alltasks, layout }) => {
     // console.log(taskId);
 
     dis(updateTask({ taskId, isChecked }));
+    
   };
 
   const closeDeleteModal = () => {
