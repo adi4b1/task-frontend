@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { updateTask, deleteTask } from "../redux/taskSlice";
 import { useState } from "react";
+import Notasks from "./Notasks";
 const TaskCom = ({ tasks, alltasks, layout }) => {
   // console.log('tasks',tasks);
   const current_user = localStorage.getItem("current_user");
@@ -64,9 +65,9 @@ const TaskCom = ({ tasks, alltasks, layout }) => {
 
   return (
     <>
-      {current_user ? (
-        <>
-          {filtertasks?.map((i) => {
+      {current_user && (
+        <>{filtertasks.length>0?(<>
+        {filtertasks?.map((i) => {
             return (
              
                 <div
@@ -132,10 +133,13 @@ const TaskCom = ({ tasks, alltasks, layout }) => {
               
             );
           })}
+            
+        </>):(<section className="place-center"> 
+            <Notasks/>
+          </section>)}
+          
         </>
-      ) : (
-        <>no tasks found</>
-      )}
+      ) }
     </>
   );
 };
