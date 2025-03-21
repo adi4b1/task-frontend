@@ -1,6 +1,7 @@
 import TaskCom from "./TaskCom";
+// import { toast } from "react-toastify";
+import { useState, useEffect, useRef } from "react";
 
-import { useState, useEffect } from "react";
 import {
   fetchTasks,
   createTask,
@@ -30,14 +31,17 @@ import Nav from "./Nav";
 //     }
 // };
 
-const Alltasks = ({LogoutHandler}) => {
+const Alltasks = ({ LogoutHandler }) => {
   const dispatch = useDispatch();
+  const [minDate, setminDate] = useState("");
   const { alltasks, tasks, loading, error, layout, layoutmodal } = useSelector(
     (state) => state.tasks
   );
+  const inpref = useRef(null);
 
   // const[radioValue,setradioValue]=useState(intialRadio)
   useEffect(() => {
+    setAll(true);
     dispatch(fetchTasks());
   }, [dispatch]);
 
@@ -45,6 +49,11 @@ const Alltasks = ({LogoutHandler}) => {
   const [message, setmessage] = useState(false);
   const [pending, setpending] = useState(false);
   const [completed, setcompleted] = useState(false);
+
+  const [high, sethigh] = useState(false);
+  const [medium, setmedium] = useState(false);
+  const [low, setlow] = useState(false);
+  const [All, setAll] = useState(false);
   // const[isSubmit,setissubmit]=useState(false)
   const [taskdata, settaskdata] = useState({
     taskname: "",
@@ -71,24 +80,20 @@ const Alltasks = ({LogoutHandler}) => {
     // console.log(intialRadio);
   };
 
-  const formSubmitHandler = async (e) => {
+  const formSubmitHandler = (e) => {
     e.preventDefault();
-    try {
-      await dispatch(createTask(taskdata)).unwrap(); //wait for task ceration after second dispatch works
 
-      settaskdata("");
-    } catch (error) {
-      console.error("Task creation failed:", error);
-    } finally {
-      setmessage(false);
+    dispatch(createTask(taskdata)); //wait for task ceration after second dispatch works
 
+    settaskdata({
+      taskname: "",
+      priority: "",
+      deadline: "",
+    });
+    setTimeout(() => {
       dispatch(fetchTasks());
-      settaskdata({
-        taskname: "",
-        priority: "",
-        deadline: "",
-      });
-    }
+    }, 2000);
+    setmessage(false);
   };
 
   const reversedArray = tasks.map((i) => i).reverse();
@@ -118,30 +123,92 @@ const Alltasks = ({LogoutHandler}) => {
   const pendingClickHandler = (e) => {
     setpending(true);
     setcompleted(false);
+    setAll(false);
+    sethigh(false);
+    setmedium(false);
+    setlow(false);
     dispatch(getisComplete(Boolean(0)));
   };
   const completeClickHandler = (e) => {
     setpending(false);
     setcompleted(true);
+    setAll(false);
+    sethigh(false);
+    setmedium(false);
+    setlow(false);
     dispatch(getisComplete(Boolean(1)));
   };
+  const AllClickHandler = (e) => {
+    setAll(true);
+    setpending(false);
+    setcompleted(false);
+    sethigh(false);
+    setmedium(false);
+    setlow(false);
+    dispatch(getisComplete("All"));
+  };
+
+  const HighClickFilterHandler = () => {
+    sethigh(true);
+    setmedium(false);
+    setlow(false);
+    dispatch(getPriority("High"));
+    // console.log('fg',typeof getPriority('High'));
+  };
+  const MediumClickFilterHandler = () => {
+    sethigh(false);
+
+    setmedium(true);
+    setlow(false);
+    dispatch(getPriority("Medium"));
+  };
+  const LowClickFilterHandler = () => {
+    setlow(true);
+    sethigh(false);
+    setmedium(false);
+    dispatch(getPriority("Low"));
+  };
+
+  const dateClickHandler = (e) => {
+    const getDate = new Date().toISOString().split("T")[0];
+    if (inpref.current) {
+      inpref.current.setAttribute("min", getDate);
+    }
+    setminDate(getDate);
+    console.log(getDate);
+    console.log(inpref);
+  };
+
   return (
     <div className="headerAllTask">
       <div className="taskBlock">
         <h3 className="Title">Taskify</h3>
-        <h3 onClick={refreshHandler} className="btn btn-outline-primary">
-          🔃
-        </h3>
+
         <button className="createButton" onClick={openModal}>
           ➕Task
         </button>
       </div>
       <hr />
       <div className="mainBodyAlltasks">
-        <Nav LogoutHandler={LogoutHandler}/>
+        <Nav LogoutHandler={LogoutHandler} />
         {/* <hr /> */}
         <div>
           <div className="actions">
+            <button onClick={refreshHandler}>🔃</button>
+            <button
+              onClick={AllClickHandler}
+              style={
+                All
+                  ? {
+                      color: "white",
+                      border: "2px solid green",
+                      backgroundColor: "green",
+                    }
+                  : {}
+              }
+            >
+              All
+            </button>
             <button
               onClick={pendingClickHandler}
               style={
@@ -170,6 +237,53 @@ const Alltasks = ({LogoutHandler}) => {
             >
               Completed
             </button>
+
+            {/* ///priorites */}
+            <div className="forvertical"></div>
+            <button
+              onClick={HighClickFilterHandler}
+              style={
+                high
+                  ? {
+                      color: "white",
+                      border: "2px solid green",
+                      backgroundColor: "green",
+                    }
+                  : {}
+              }
+            >
+              H
+            </button>
+
+            <button
+              onClick={MediumClickFilterHandler}
+              style={
+                medium
+                  ? {
+                      color: "white",
+                      border: "2px solid green",
+                      backgroundColor: "green",
+                    }
+                  : {}
+              }
+            >
+              M
+            </button>
+
+            <button
+              onClick={LowClickFilterHandler}
+              style={
+                low
+                  ? {
+                      color: "white",
+                      border: "2px solid green",
+                      backgroundColor: "green",
+                    }
+                  : {}
+              }
+            >
+              L
+            </button>
           </div>
           {/* <hr /> */}
           <div>
@@ -191,117 +305,114 @@ const Alltasks = ({LogoutHandler}) => {
               />
             </div>
           </div>
-          
         </div>
-        
       </div>
       {/* ////modal */}
       {modal && (
-            <section className="forModal">
-              
-                <button
-                  onClick={() => {
-                    setmodal(false);
-                    setmessage(false);
-                  }}
-                  className="closeModalButton"
-                >
-                  X
-                </button>
-                <span style={{ color: "green" }}>
-                  {message && "form submitted sucesfully 😀"}
-                </span>
-                <form onSubmit={formSubmitHandler} className="formBody ">
-                  <label htmlFor="taskname">Taskname</label>
-                  <textarea
-                    type="text"
-                    id="taskname"
-                    className="form-control"
-                    onChange={inputHandler}
-                    name="taskname"
-                    required
-                    value={taskdata.taskname}
-                    placeholder="enter your task"
-                  />
+        <section className="forModal">
+          <button
+            onClick={() => {
+              setmodal(false);
+              setmessage(false);
+            }}
+            className="closeModalButton"
+          >
+            X
+          </button>
+          <span style={{ color: "green" }}>
+            {message && "form submitted sucesfully 😀"}
+          </span>
+          <form onSubmit={formSubmitHandler} className="formBody ">
+            <label htmlFor="taskname">Taskname</label>
+            <textarea
+              type="text"
+              id="taskname"
+              className="form-control"
+              onChange={inputHandler}
+              name="taskname"
+              required
+              value={taskdata.taskname}
+              placeholder="enter your task"
+            />
 
-                  <label htmlFor="priority">priority</label>
-                  <select
-                    name="priority"
-                    onChange={inputHandler}
-                    className="form-control"
-                    value={taskdata.priority}
-                    id="priority"
-                    required
-                  >
-                    <option value="">Select priority</option>
-                    <option value="High">High</option>
-                    <option value="Medium">Medium</option>
-                    <option value="Low">Low</option>
-                  </select>
+            <label htmlFor="priority">priority</label>
+            <select
+              name="priority"
+              onChange={inputHandler}
+              className="form-control"
+              value={taskdata.priority}
+              id="priority"
+              required
+            >
+              <option value="">Select priority</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
 
-                  <label htmlFor="deadline">deadline</label>
-                  <input
-                    type="datetime-local"
-                    onChange={inputHandler}
-                    required
-                    className="form-control"
-                    value={taskdata.deadline}
-                    name="deadline"
-                    id="deadline"
-                  />
+            <label htmlFor="deadline">deadline</label>
+            <input
+              type="date"
+              onChange={inputHandler}
+              min={minDate}
+              required
+              onClick={dateClickHandler}
+              ref={inpref}
+              className="form-control"
+              value={taskdata.deadline}
+              name="deadline"
+              id="deadline"
+            />
 
-                  <button type="submit" className="btn btn-success">
-                    submit
-                  </button>
-                </form>
-             
-            </section>
-          )}
+            <button type="submit" className="btn btn-success">
+              submit
+            </button>
+          </form>
+        </section>
+      )}
 
-          {layoutmodal && (
-            <div className="forModal">
-              <button onClick={closeUIModal} className="closeModalButton">
-                X
-              </button>
+      {layoutmodal && (
+        <div className="forModal">
+          <button onClick={closeUIModal} className="closeModalButton">
+            X
+          </button>
 
-              <section className="forSection" onClick={setLayoutChange}>
-                <div
-                  className="boxContent"
-                  style={
-                    layout === "Square" ? { border: "3px solid green" } : {}
-                  }
-                >
-                  <h3 style={{ cursor: "pointer" }}>Square</h3>
-                  <div className="forparentDivSqaure">
-                    <div className="childSquare"></div>
-                    <div className="childSquare"></div>
-                    <div className="childSquare"></div>
-                    <div className="childSquare"></div>
-                    <div className="childSquare"></div>
-                    <div className="childSquare"></div>
-                    <div className="childSquare"></div>
-                    {/* <div className="childSquare"></div>
+          <section className="forSection" onClick={setLayoutChange}>
+            <div
+              className="boxContent"
+              style={layout === "Square" ? { border: "3px solid green" } : {}}
+            >
+              <h3 style={{ cursor: "pointer" }}>Square</h3>
+              <div className="forparentDivSqaure">
+                <div className="childSquare"></div>
+                <div className="childSquare"></div>
+                <div className="childSquare"></div>
+                <div className="childSquare"></div>
+                <div className="childSquare"></div>
+                <div className="childSquare"></div>
+                <div className="childSquare"></div>
+                {/* <div className="childSquare"></div>
                     <div className="childSquare"></div> */}
-                  </div>
-                </div>
-                <div
-                  className="boxContent"
-                  style={
-                    layout === "Rectangle" ? { border: "3px solid green" } : {}
-                  }
-                >
-                  <h3 style={{ cursor: "pointer" }}>Rectangle</h3>
-                  <div className="forparentDivRect">
-                    <div className="childRect"></div>
-                    <div className="childRect"></div>
-                    <div className="childRect"></div>
-                    <div className="childRect"></div>
-                    <div className="childRect"></div>
-                  </div>
-                </div>
-              </section>
+              </div>
             </div>
-          )}
+            <div
+              className="boxContent"
+              style={
+                layout === "Rectangle" ? { border: "3px solid green" } : {}
+              }
+            >
+              <h3 style={{ cursor: "pointer" }}>Rectangle</h3>
+              <div className="forparentDivRect">
+                <div className="childRect"></div>
+                <div className="childRect"></div>
+                <div className="childRect"></div>
+                <div className="childRect"></div>
+                <div className="childRect"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
     </div>
   );
 };

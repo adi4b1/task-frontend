@@ -1,6 +1,19 @@
 import React, { useState } from "react";
 import { API_URL } from "./api";
+import { ToastContainer, toast } from "react-toastify";
 const Register = ({ showLogin }) => {
+  const notify = () =>
+    toast("Successfully Registered 😀", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  const [registered, setregistered] = useState(false);
   const [data, setdata] = useState({
     username: "",
     email: "",
@@ -9,7 +22,9 @@ const Register = ({ showLogin }) => {
 
   const registerHandler = async (e) => {
     e.preventDefault();
+
     try {
+      setregistered(true);
       const response = await fetch(`${API_URL}/user/register`, {
         method: "POST",
         headers: {
@@ -17,13 +32,25 @@ const Register = ({ showLogin }) => {
         },
         body: JSON.stringify(data),
       });
+      setregistered(true);
       if (!response.ok) {
         throw new Error("Registration failed");
       }
+
       const responseData = await response.json();
       //   console.log(responseData);
-      if(response.ok){
-        showLogin()
+      if (response.ok) {
+        toast("Registered Success 😀", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        showLogin();
       }
       setdata({
         username: "",
@@ -32,12 +59,17 @@ const Register = ({ showLogin }) => {
       });
     } catch (error) {
       console.log(error);
+      toast.error(`❌ ${error.message}`, { position: "top-right" });
     }
+    setregistered(false);
   };
   return (
     <>
       {/* <div> */}
-      
+      {/* <>
+        <h1 className='Title'>Taskify</h1>
+        <h4>Welcome to Taskify 🙏</h4>
+    </> */}
       <section className="forRegisterDisplay">
         <form
           align="center"
@@ -81,11 +113,23 @@ const Register = ({ showLogin }) => {
           />
           <br />
 
-          <button type="submit"className="btn btn-success">Register</button>
+          <button type="submit" className="btn btn-success" onClick={notify}>
+            {registered ? (
+              <>
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              </>
+            ) : (
+              "Register"
+            )}
+          </button>
+          <ToastContainer />
           <span>
-            already register?&nbsp;<a onClick={showLogin}
-            style={{cursor:"pointer"}}
-            >login</a>
+            already register?&nbsp;
+            <a onClick={showLogin} style={{ cursor: "pointer", color: "blue" }}>
+              login
+            </a>
           </span>
         </form>
       </section>
