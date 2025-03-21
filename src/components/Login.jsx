@@ -28,16 +28,16 @@ const Login = ({ showHome, showRegister }) => {
       );
       if (!res.ok) throw new Error("login failed");
       //   console.log('before convert',res);
-      toast("Login Success 😀", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+    //   toast("Login Success 😀", {
+    //     position: "top-right",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: false,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "dark",
+    //   });
       const loginResponse = await res.json();
       //   console.log('log data',loginResponse);
 
@@ -52,9 +52,9 @@ const Login = ({ showHome, showRegister }) => {
       });
     } catch (error) {
       console.log(error);
-      toast.error(`${error.message} check username or password`, {
-        position: "top-right",
-      });
+    //   toast.error(`${error.message} check username or password`, {
+    //     position: "top-right",
+    //   });
     }
     setloginstatus(false);
   };
