@@ -85,7 +85,7 @@ const Nav = ({ LogoutHandler }) => {
           </span>
         </div>
       </div>
-      <br />
+      {/* <br /> */}
       <div className="secondNavInfo">
         {/* <h5>Filters</h5>
         <label>Priority</label>
