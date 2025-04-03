@@ -210,20 +210,6 @@ const Alltasks = ({ LogoutHandler }) => {
               All
             </button>
             <button
-              onClick={pendingClickHandler}
-              style={
-                pending
-                  ? {
-                      color: "white",
-                      border: "2px solid green",
-                      backgroundColor: "green",
-                    }
-                  : {}
-              }
-            >
-              Pending
-            </button>
-            <button
               onClick={completeClickHandler}
               style={
                 completed
@@ -236,6 +222,20 @@ const Alltasks = ({ LogoutHandler }) => {
               }
             >
               Completed
+            </button>
+            <button
+              onClick={pendingClickHandler}
+              style={
+                pending
+                  ? {
+                      color: "white",
+                      border: "2px solid green",
+                      backgroundColor: "green",
+                    }
+                  : {}
+              }
+            >
+              Pending
             </button>
 
             {/* ///priorites */}
