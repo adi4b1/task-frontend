@@ -177,7 +177,7 @@ input:focus {
     display: none;
   }
   .navInfo {
-    padding: 0;
+    padding: 1px;
     max-width: 540px;
     max-height: 75px;
     height: 99%;
