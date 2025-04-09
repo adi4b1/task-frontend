@@ -375,7 +375,7 @@ top:40%;
 .taskname{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 15px;
-  text-align: justify;
+  text-align: balance;
 }
 .created{
   font-size: 12px;
