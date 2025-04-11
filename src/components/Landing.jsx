@@ -42,9 +42,9 @@ const index = () => {
   };
   const LogoutHandler = () => {
     setloading(true);
-    setregister(true);
+    setregister(false);
     setlanding(true);
-    setlogin(false);
+    setlogin(true);
     setlogout(false);
     setHome((prev) => !prev);
     setloading(false);

@@ -1,23 +1,21 @@
-// import { useEffect } from "react"
+import { useCallback, useEffect,useRef } from "react"
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateTask, deleteTask } from "../redux/taskSlice";
 import { useState } from "react";
 import Notasks from "./Notasks";
 const TaskCom = ({ tasks, alltasks, layout }) => {
-  // console.log('tasks',tasks);
+
+  const loadRef=useRef()
+  const[max,setmax]=useState(5)
   const current_user = localStorage.getItem("current_user");
-  // console.log('from task com user',current_user,typeof current_user);
 
   let filtertasks = tasks?.filter((i) => i.user && i.user[0] === current_user);
 
-  // console.log(filtertasks);
   const [activeTaskId, setActiveTaskId] = useState(null);
   const dis = useDispatch();
 
   const isCheckedHandler = (taskId, isChecked) => {
-    // console.log(taskId);
-
     dis(updateTask({ taskId, isChecked }));
   };
 
@@ -63,13 +61,43 @@ const TaskCom = ({ tasks, alltasks, layout }) => {
   //     }
   // }
 
+  const handleObserver=useCallback((entries)=>{
+    const target=entries[0]
+    if(target.isIntersecting){
+      setmax((prev)=>prev+5)
+    }
+  },[])
+
+  useEffect(()=>{
+
+    if(max>=filtertasks.length) return;
+    const option={
+      root:null,
+      rootMargin:"20px",
+      threshold:1.0,
+    }
+
+    const observer=new IntersectionObserver(handleObserver,option)
+
+    if(loadRef.current){
+      console.log('object entered');
+      
+      observer.observe(loadRef.current)
+    }
+
+    return()=>{
+      if(loadRef.current){
+        observer.unobserve(loadRef.current)
+      }
+    }
+  },[handleObserver,filtertasks.length,max])
   return (
     <>
       {current_user && (
         <>
           {filtertasks.length > 0 ? (
             <>
-              {filtertasks?.map((i) => {
+              {filtertasks?.slice(0,max).map((i) => {
                 return (
                   <div
                     key={i._id}
@@ -137,7 +165,14 @@ const TaskCom = ({ tasks, alltasks, layout }) => {
                   </div>
                 );
               })}
+              {max<=filtertasks.length&&<>
+                <section ref={loadRef} style={{height:"50px"}}>
+                <p>Load more</p>
+              </section>
+              </>}
+             
             </>
+            
           ) : (
             <section className="place-center">
               <Notasks />

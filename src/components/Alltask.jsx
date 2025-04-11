@@ -1,7 +1,7 @@
 import TaskCom from "./TaskCom";
 // import { toast } from "react-toastify";
 import { useState, useEffect, useRef } from "react";
-
+import { Offcanvas } from "bootstrap";
 import {
   fetchTasks,
   createTask,
@@ -77,6 +77,12 @@ const Alltasks = ({ LogoutHandler }) => {
     dispatch(fetchTasks());
     dispatch(getPriority("All"));
     dispatch(getisComplete(0));
+    setAll(true);
+    sethigh(false);
+    setmedium(false);
+    setlow(false);
+    setpending(false);
+    setcompleted(false);
     // console.log(intialRadio);
   };
 
@@ -179,6 +185,12 @@ const Alltasks = ({ LogoutHandler }) => {
     // console.log(inpref);
   };
 
+  const canvasRef = useRef();
+
+  const showCanvas = () => {
+    const bsCanvas = new Offcanvas(canvasRef.current);
+    bsCanvas.show();
+  };
   return (
     <div className="headerAllTask">
       <div className="taskBlock">
@@ -188,12 +200,41 @@ const Alltasks = ({ LogoutHandler }) => {
           ➕Task
         </button>
       </div>
-      <hr />
+      <hr/>
       <div className="mainBodyAlltasks">
+        <div className="NavDisplayInAllTasks">
         <Nav LogoutHandler={LogoutHandler} />
+        </div>
+        
         {/* <hr /> */}
         <div>
           <div className="actions">
+            <button className="btn btn-primary offCanvasButton"  onClick={showCanvas}>
+              Open
+            </button>
+
+            <div
+              className="offcanvas offcanvas-end"
+              tabIndex="-1"
+              ref={canvasRef}
+              id="offcanvasRight"
+              aria-labelledby="offcanvasRightLabel"
+            >
+              <div className="offcanvas-header">
+                <h5 className="offcanvas-title" id="offcanvasRightLabel">
+                  Right Offcanvas
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="offcanvas-body">
+              <Nav LogoutHandler={LogoutHandler} />
+              </div>
+            </div>
             <button onClick={refreshHandler}>🔃</button>
             <button
               onClick={AllClickHandler}
@@ -293,7 +334,7 @@ const Alltasks = ({ LogoutHandler }) => {
                   <span className="visually-hidden">Loading...</span>
                 </div>
               )}
-              {error && <p>getting error</p>}
+              {error && !alltasks && <p>getting error</p>}
             </div>
             <div className="taskCards">
               <TaskCom

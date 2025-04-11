@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { getPriority, getisComplete, getlayoutmodal } from "../redux/taskSlice";
 import { useState, useRef } from "react";
+import CirclePieChart from "./CirclePieChart";
 
 const Nav = ({ LogoutHandler }) => {
   const username = localStorage.getItem("current_username");
@@ -20,7 +21,9 @@ const Nav = ({ LogoutHandler }) => {
   //   console.log("total", total);
 
   const pending = total.filter((k) => !k.isComplete).length;
+  const completed = total.length - pending;
 
+  // console.log("Total:", total, "Pending:", pending, "Completed:", completed);
   // console.log('tasks',tasks);
   // console.log('alltasks',alltasks);
 
@@ -71,8 +74,9 @@ const Nav = ({ LogoutHandler }) => {
     setlogoutoption(!logoutoption);
   };
   return (
-    <div className="navInfo">
+    <section className="navInfo">
       <div className="firstnavInfo">
+        
         <div className="childOne">
           <h6>Tasks</h6>
           <span className="badge text-bg-info">{total.length}</span>
@@ -160,16 +164,27 @@ const Nav = ({ LogoutHandler }) => {
           <span>
             <i className="bi bi-chevron-right"></i>
           </span>
-        </section>
-        {logoutoption && (
+          {logoutoption && (
           <section className="logoutClass">
             <span onClick={LogoutHandler} className="logoutButton">
               <i className="bi bi-box-arrow-right"></i> &nbsp;Logout
             </span>
           </section>
-        )}
+          )}
+        </section>
+        
       </div>
-    </div>
+      <br />
+      <h5 align="center">Visualiser</h5>
+      <section>
+      <CirclePieChart completed={completed} pending={pending}/>
+      </section>
+      {/* <section className="firstCircle">
+          <section className="secondCircle">
+
+          </section>
+        </section> */}
+    </section>
   );
 };
 
