@@ -249,7 +249,7 @@ hr {
   }
   .taskBody {
     background-color: #ffffff;
-    max-height: 150px;
+    max-height: 250px;
     height: 99%;
     max-width: auto;
     /* border:1px solid black; */

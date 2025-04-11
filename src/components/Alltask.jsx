@@ -223,7 +223,7 @@ const Alltasks = ({ LogoutHandler }) => {
             >
               <div className="offcanvas-header">
                 <h5 className="offcanvas-title" id="offcanvasRightLabel">
-                  Right Offcanvas
+                  Profile
                 </h5>
                 <button
                   type="button"
@@ -233,7 +233,7 @@ const Alltasks = ({ LogoutHandler }) => {
                 ></button>
               </div>
               <div className="offcanvas-body">
-              <Nav LogoutHandler={LogoutHandler} />
+                <Nav LogoutHandler={LogoutHandler} />
               </div>
             </div>
             <button onClick={refreshHandler}>
