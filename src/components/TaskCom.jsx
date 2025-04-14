@@ -113,7 +113,7 @@ const TaskCom = ({ tasks, alltasks, layout }) => {
                         }
                         title={i.taskname}
                       >
-                        {i.taskname.substr(0, 250)}
+                        {i.taskname.substr(0, 200)}
                       </h6>
                     </div>
                     <div className="taskbodyFooter">
